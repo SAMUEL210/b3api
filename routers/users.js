@@ -3,10 +3,11 @@ var router = express.Router();
 var userModel = require("../models/user");
 var { encrypt } = require('../utilities/crypto')
 var { validate } = require('email-validator')
+var { checkToken } = require('../utilities/token')
 
 
 /* https://api.monsuperhotel.com/users*/
-router.post("/", async(request, response) => {
+router.post("/", checkToken, async(request, response) => {
     let { body } = request;
     body.password = encrypt(body.password);
     try {
@@ -19,19 +20,19 @@ router.post("/", async(request, response) => {
 });
 
 /* https://api.monsuperhotel.com/users*/
-router.get("/", async(request, response) => {
+router.get("/", checkToken, async(request, response) => {
     var users = await userModel.find({}); // == "SELECT * from users"
     response.json({ users });
 });
 
 /* https://api.monsuperhotel.com/users/59bfd752z */
-router.get("/:id", async(request, response) => {
+router.get("/:id", checkToken, async(request, response) => {
     var user = await userModel.findOne({ _id: request.params.id });
     response.json({ user });
 });
 
 /* https://api.monsuperhotel.com/users/59bfd752z*/
-router.put("/:id", async(request, response) => {
+router.put("/:id", checkToken, async(request, response) => {
     let { body } = request;
     let dejaEmail = false;
     if (validate(body.email)) {
@@ -48,15 +49,15 @@ router.put("/:id", async(request, response) => {
             var user = await userModel.findOneAndUpdate({ _id: request.params.id },
                 body, { new: true }
             );
-            response.json(user);
-        } else response.status(400).send({ result: "UserEmailAlreadyExist" })
-    } else response.json({ result: "EmailNotValid" })
+            response.send({ result: user });
+        } else response.send({ result: "UserEmailAlreadyExist" })
+    } else response.send({ result: "EmailNotValid" })
 
 });
 
 /* https://api.monsuperhotel.com/users/59bfd752z*/
-router.delete("/:id", async(request, response) => {
-    var u = await userodel.findOne({ _id: request.params.id })
+router.delete("/:id", checkToken, async(request, response) => {
+    var u = await userModel.findOne({ _id: request.params.id })
     if (u) {
         var user = await userModel.findOneAndRemove({ _id: request.params.id });
         response.status(200).send({ result: 'Success' });

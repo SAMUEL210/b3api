@@ -9,7 +9,14 @@ Endpoints:
     - /bookings
     - /authentification
 
+TOKEN:
+    header-text: x-access-token
+    header-value : token (authentification login)
+
 USERS :
     - options : { name: string, firstname: string, email: string, password: string, isAdmin: boolean }
     - params : id
         Exemples : /users/user_id (to get a user by his id)...
+        
+LOGIN :
+    - option : { eamail: string, password: string }

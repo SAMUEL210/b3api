@@ -18,7 +18,7 @@ const checkToken = (req, rep, next) => {
     if (token) {
         jwt.verify(token, process.env.jwt_secret_key, (err, decoded) => {
             if (err) {
-                rep.send({ error: "TOKEN_PAS_VALIDE" });
+                rep.send({ error: "TokenNotValid" });
             } else {
                 req.decoded = decoded;
 
@@ -36,7 +36,7 @@ const checkToken = (req, rep, next) => {
             }
         });
     } else {
-        rep.send({ error: "PAS DE TOKEN" });
+        rep.send({ error: "NoToken" });
     }
 };
 
