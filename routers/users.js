@@ -59,8 +59,8 @@ router.put("/:id", checkToken, async(request, response) => {
 router.delete("/:id", checkToken, async(request, response) => {
     var u = await userModel.findOne({ _id: request.params.id })
     if (u) {
-        var user = await userModel.findOneAndRemove({ _id: request.params.id });
-        responsesend({ result: 'Success' });
+        await userModel.findOneAndRemove({ _id: request.params.id });
+        response.send({ result: 'Success' });
     } else response.send({ result: 'UserNotExist' })
 });
 

@@ -1,5 +1,4 @@
 var mongoose = require('mongoose')
-const roomModel = require('./room')
 
 var hotelSchema = new mongoose.Schema({
     name: {
@@ -40,9 +39,9 @@ hotelSchema.pre("save", async function(next) {
 
 });
 
-hotelSchema.post('findOneAndDelete', async function(doc) {
-    await roomModel.deleteMany({ hotel: doc._id })
-})
+// hotelSchema.post('findOneAndDelete', async function(doc) {
+//     await roomModel.deleteMany({ hotel: doc._id })
+// })
 
 
 var hotelModel = mongoose.model('hotel', hotelSchema)
