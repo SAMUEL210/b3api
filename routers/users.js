@@ -13,9 +13,9 @@ router.post("/", checkToken, async(request, response) => {
     try {
         var user = new userModel(body);
         await user.save();
-        response.status(200).send({ user });
+        response.send({ user });
     } catch (e) {
-        response.status(409).send({ error: e.message });
+        response.send({ error: e.message });
     }
 });
 
@@ -60,10 +60,8 @@ router.delete("/:id", checkToken, async(request, response) => {
     var u = await userModel.findOne({ _id: request.params.id })
     if (u) {
         var user = await userModel.findOneAndRemove({ _id: request.params.id });
-        response.status(200).send({ result: 'Success' });
-    } else {
-        response.status(400).send({ result: 'UserNotExist' })
-    }
+        responsesend({ result: 'Success' });
+    } else response.send({ result: 'UserNotExist' })
 });
 
 module.exports = router;
