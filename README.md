@@ -4,12 +4,12 @@ Faire une API en Node JS, Express JS, Mongo DB qui gère les hotel
 
 API ONLINE : https://dashboard.heroku.com/apps/api-csiab3
 
-Endpoints:
-    - /users
-    - /hotels
-    - /rooms
-    - /bookings
-    - /authentification
+Endpoints :
+     /users
+     /hotels
+     /rooms
+     /bookings
+     /login
 
 TOKEN:
     header-text: x-access-token
