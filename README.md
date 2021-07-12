@@ -2,6 +2,8 @@ Projet API NODE JS CSIA AL B3
 
 Faire une API en Node JS, Express JS, Mongo DB qui gère les hotel
 
+API ONLINE : https://dashboard.heroku.com/apps/api-csiab3
+
 Endpoints:
     - /users
     - /hotels
