@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const userModel = require('../models/user')
+const { userModel } = require('../models/models')
 const { createToken } = require('../utilities/token')
 var { decrypt } = require("../utilities/crypto");
 

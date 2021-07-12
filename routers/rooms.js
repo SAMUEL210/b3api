@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var roomModel = require('../models/room')
+var { roomModel } = require('../models/models')
 var { checkToken } = require('../utilities/token')
 
 /* https://api.monsuperhotel.com/rooms*/
@@ -24,13 +24,13 @@ router.get('/:id', checkToken, async(request, response) => {
 /* https://api.monsuperhotel.com/rooms/h/59bfd752z */
 router.get('/h/:id', checkToken, async(request, response) => {
     var Hotelrooms = await roomModel.find({ hotel: request.params.id })
-    response.json({ Hotelrooms })
+    response.send({ Hotelrooms })
 })
 
 /* https://api.monsuperhotel.com/rooms*/
 router.get('/', checkToken, async(request, response) => {
     var rooms = await roomModel.find({}) // == "SELECT * from bookings"
-    response.json({ rooms })
+    response.send({ rooms })
 })
 
 /* https://api.monsuperhotel.com/rooms/59bfd752z*/

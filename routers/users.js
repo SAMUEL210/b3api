@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var userModel = require("../models/user");
+var { userModel } = require("../models/models");
 var { encrypt } = require('../utilities/crypto')
 var { validate } = require('email-validator')
 var { checkToken } = require('../utilities/token')
@@ -22,13 +22,13 @@ router.post("/", checkToken, async(request, response) => {
 /* https://api.monsuperhotel.com/users*/
 router.get("/", checkToken, async(request, response) => {
     var users = await userModel.find({}); // == "SELECT * from users"
-    response.json({ users });
+    response.send({ users });
 });
 
 /* https://api.monsuperhotel.com/users/59bfd752z */
 router.get("/:id", checkToken, async(request, response) => {
     var user = await userModel.findOne({ _id: request.params.id });
-    response.json({ user });
+    response.send({ user });
 });
 
 /* https://api.monsuperhotel.com/users/59bfd752z*/

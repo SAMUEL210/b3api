@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var hotelModel = require('../models/hotel')
+var { hotelModel } = require('../models/models')
 var { checkToken } = require('../utilities/token')
 
 /* https://api.monsuperhotel.com/hotels*/
@@ -19,13 +19,13 @@ router.post('/', checkToken, async(request, response) => {
 /* https://api.monsuperhotel.com/hotels/59bfd752z */
 router.get('/:id', checkToken, async(request, response) => {
     var hotel = await hotelModel.findOne({ _id: request.params.id })
-    response.json({ hotel })
+    response.send({ hotel })
 })
 
 /* https://api.monsuperhotel.com/hotels*/
 router.get('/', checkToken, async(request, response) => {
     var hotels = await hotelModel.find({}) // == "SELECT * from users"
-    response.json({ hotels })
+    response.send({ hotels })
 })
 
 /* https://api.monsuperhotel.com/hotels/59bfd752z*/
@@ -43,7 +43,7 @@ router.put('/:id', checkToken, async(request, response) => {
     if (dejaAjAdress) response.send({ resuult: 'HotelAtThisAdressExist' })
     else {
         var hotel = await hotelModel.findOneAndUpdate({ _id: request.params.id }, request.body, { new: true })
-        response.json(hotel)
+        response.send(hotel)
     }
 })
 
