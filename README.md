@@ -27,7 +27,7 @@ USERS :
         - https://api.exemple.com/user/idUser
         
 LOGIN :
-    - option : { eamail: string, password: string }
+    - option : (eamail: string, password: string )
     - Retourne = Token pour pouvoir acceder a endpoint ou le token est demandé
 
 HOTEL : 
