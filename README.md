@@ -70,3 +70,5 @@ BOOKING :
         - https://api.exemple.com/bookings/idBooking
     DELETE
         - https://api.exemple.com/bookings/idBooking
+
+...
